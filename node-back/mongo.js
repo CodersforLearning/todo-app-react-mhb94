@@ -27,6 +27,14 @@ if (process.argv.length === 3) {
 }
 
 else if (process.argv.length === 5) {
+  if (process.argv[3] === "delete") {
+    Todo.deleteOne({content: process.argv[4]})
+        .then(todo => {
+          console.log(`successfully deleted entry? ${todo.deletedCount}`)
+          mongoose.connection.close()
+        })
+  }
+  else {
   const todo = new Todo({
     content: process.argv[3],
     completed: process.argv[4],
@@ -36,6 +44,7 @@ else if (process.argv.length === 5) {
     console.log(`added todo: ${todo.content} completed? ${todo.completed}`)
     mongoose.connection.close()
   })
+  }
 }
 
 else {

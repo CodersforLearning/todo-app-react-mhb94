@@ -1,13 +1,13 @@
 import axios from 'axios'
-const baseUrl = '/api/todos'
+const baseUrl = 'http://localhost:3001/api/todos'
 
 const getAll = () => {
   const req = axios.get(baseUrl)
   return req.then(response => response.data)
 }
 
-const create = (id, newObject) => {
-  const req = axios.put(`${baseUrl}/${id}`, newObject)
+const create = newObject => {
+  const req = axios.post(baseUrl, newObject)
   return req.then(response => response.data)
 }
 

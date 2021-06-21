@@ -21,6 +21,23 @@ app.get('/api/todos', (req, res) => {
     })
 })
 
+app.post('/api/todos', (req, res) => {
+    const body = req.body
+
+    if (body.content === undefined) {
+        return res.status(400).json({ error: 'content missing' })
+    }
+
+    const todo = new Todo({
+        content: body.content,
+        completed: body.completed || false
+    })
+
+    todo.save().then(savedTodo => {
+        res.json(savedTodo)
+    })
+})
+
 app.delete('/api/notes/:id', (req, res) => {
     console.log(res)
 })
