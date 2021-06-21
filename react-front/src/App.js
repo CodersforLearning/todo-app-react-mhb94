@@ -34,11 +34,22 @@ const App = () => {
     setNewTodo(e.target.value)
   }
 
+  const removeTodo = (todo) => {
+    console.log('removetodo', todo)
+    if (window.confirm(`Do you want to remove ${todo.content}?`)) {
+      todoService.remove(todo)
+                 .then(setTodos(todos.filter(t => t.id !== todo.id)))
+                 .catch(error => {window.alert(
+                   `The todo "${todo.content} was already removed from the server"`
+                 )})
+    }
+  }
+
     return (
     <div>
       <h1>Todos</h1>
       <ul>
-    {todos.map(todo =>  <Todo key = {todo.id} todo={todo} /> )}
+    {todos.map(todo => <Todo key = {todo.id} todo={todo} removeTodo={removeTodo} /> )}
     </ul>
 
     <form onSubmit={addTodo}>

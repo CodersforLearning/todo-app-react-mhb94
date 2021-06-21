@@ -11,6 +11,19 @@ const create = newObject => {
   return req.then(response => response.data)
 }
 
-const exports = {getAll, create}
+const change = (todo) => {
+  return axios.put(`${baseUrl}/${todo.id}`, todo)
+              .then(response => response.data)
+}
+
+const remove = (todo) => {
+  console.log('axios remove', todo)
+  return axios.delete(`${baseUrl}/${todo.id}`, todo)
+              .then(res => {
+                console.log(res)
+              }
+              )
+}
+const exports = {getAll, create, change, remove}
 
 export default exports

@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
+const mongo = require('mongodb')
 const Todo = require('./models/todo')
 
 app.use(express.static('build'))
@@ -38,8 +39,10 @@ app.post('/api/todos', (req, res) => {
     })
 })
 
-app.delete('/api/notes/:id', (req, res) => {
-    console.log(res)
+app.delete('/api/todos/:id', (req, res) => {
+    const id = Number(req.params.id)
+    Todo.deleteOne({_id: new mongo.ObjectId(req.params.id)})
+        .then(todo => { return todo })
 })
 
 const PORT = process.env.PORT
