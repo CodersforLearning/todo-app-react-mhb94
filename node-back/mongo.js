@@ -34,6 +34,22 @@ else if (process.argv.length === 5) {
           mongoose.connection.close()
         })
   }
+
+  else if (process.argv[3] === "toggle") {
+    Todo.findOneAndUpdate(
+      {content: process.argv[4]},
+        {
+        $set: {
+            completed: true
+            }
+        },
+        {
+            upsert: true
+        }).then(found => {
+    console.log("updated", found)
+    mongoose.connection.close()
+})
+  }
   else {
   const todo = new Todo({
     content: process.argv[3],
@@ -46,6 +62,7 @@ else if (process.argv.length === 5) {
   })
   }
 }
+
 
 else {
   console.log('invalid number of arguments')

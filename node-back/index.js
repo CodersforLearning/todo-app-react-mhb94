@@ -39,8 +39,23 @@ app.post('/api/todos', (req, res) => {
     })
 })
 
+app.put('/api/todos/:id', (req, res) => {
+    console.log('app put', req.params.id)
+    Todo.findOneAndUpdate(
+        {_id: new mongo.ObjectId(req.params.id)},
+        {
+        $set: {
+            content: req.body.content,
+            completed: req.body.completed || false
+            }
+        },
+        {
+            upsert: true
+        })
+        .then(todo => console.log(todo))
+})
+
 app.delete('/api/todos/:id', (req, res) => {
-    const id = Number(req.params.id)
     Todo.deleteOne({_id: new mongo.ObjectId(req.params.id)})
         .then(todo => { return todo })
 })

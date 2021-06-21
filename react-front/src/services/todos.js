@@ -12,12 +12,15 @@ const create = newObject => {
 }
 
 const change = (todo) => {
-  return axios.put(`${baseUrl}/${todo.id}`, todo)
-              .then(response => response.data)
+  console.log('change before baseurl')
+  return axios.put(`${baseUrl}/${todo.id}`,todo)
+              .then(res => {
+                console.log('change promise returned'
+                )
+                return res.data})
 }
 
 const remove = (todo) => {
-  console.log('axios remove', todo)
   return axios.delete(`${baseUrl}/${todo.id}`, todo)
               .then(res => {
                 console.log(res)

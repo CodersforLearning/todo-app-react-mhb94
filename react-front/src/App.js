@@ -45,19 +45,28 @@ const App = () => {
     }
   }
 
+  const toggleCompletion = todo => {
+    const changedTodo = { ...todo, "completed": !todo.completed}
+    console.log('changedTodo', changedTodo)
+    todoService.change(changedTodo)
+               .then(setTodos(todos.map(todo => todo.id !== changedTodo.id ? todo : changedTodo))
+               )
+  }
+
     return (
     <div>
       <h1>Todos</h1>
-      <ul>
-    {todos.map(todo => <Todo key = {todo.id} todo={todo} removeTodo={removeTodo} /> )}
-    </ul>
-
-    <form onSubmit={addTodo}>
+        <form onSubmit={addTodo}>
       <input
       value={newTodo}
       onChange={handleTodoChange}/>
       <button type="submit">save</button>
     </form>
+      <table>
+        <tbody>
+    {todos.map(todo => <Todo key = {todo.id} todo={todo} removeTodo={removeTodo} toggleChange={toggleCompletion}/> )}
+</tbody>
+      </table>
     </div>
   )
 }

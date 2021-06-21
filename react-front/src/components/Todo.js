@@ -1,11 +1,18 @@
 import React from 'react'
 
-const Todo = ({todo,removeTodo}) => {
+const Todo = ({todo,removeTodo, toggleChange}) => {
   return (
-    <li className='todo'>
+    <tr>
+    <td>
+      <input type="checkbox" checked={todo.completed} onChange={() => toggleChange(todo)}/>
+    </td>
+      <td>
     {todo.content}
+    </td>
+      <td>
     <button onClick={() => removeTodo(todo)}>x</button>
-    </li>
+    </td>
+    </tr>
   )
 }
 
