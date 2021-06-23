@@ -54,7 +54,7 @@ const App = () => {
   }
 
     return (
-    <div>
+      <section>
       <h1>Todos</h1>
         <form onSubmit={addTodo}>
       <input
@@ -67,7 +67,7 @@ const App = () => {
     {todos.map(todo => <Todo key = {todo.id} todo={todo} removeTodo={removeTodo} toggleChange={toggleCompletion}/> )}
 </tbody>
       </table>
-    </div>
+      </section>
   )
 }
 
